@@ -84,7 +84,7 @@
             lblTitulo.Name = "lblTitulo";
             lblTitulo.Size = new Size(252, 32);
             lblTitulo.TabIndex = 1;
-            lblTitulo.Text = "GESTION DE LIBROS";
+            lblTitulo.Text = "GESTIÓN DE LIBROS";
             // 
             // pnlBusqueda
             // 
@@ -106,6 +106,7 @@
             btnBuscarISBN.TabIndex = 3;
             btnBuscarISBN.Text = "Buscar";
             btnBuscarISBN.UseVisualStyleBackColor = true;
+            btnBuscarISBN.Click += btnBuscarISBN_Click;
             // 
             // txtBuscarISBN
             // 
@@ -148,7 +149,7 @@
             // cmbEditorial
             // 
             cmbEditorial.FormattingEnabled = true;
-            cmbEditorial.Location = new Point(523, 139);
+            cmbEditorial.Location = new Point(523, 131);
             cmbEditorial.Name = "cmbEditorial";
             cmbEditorial.Size = new Size(219, 23);
             cmbEditorial.TabIndex = 18;
@@ -156,7 +157,7 @@
             // cmbAutor
             // 
             cmbAutor.FormattingEnabled = true;
-            cmbAutor.Location = new Point(523, 109);
+            cmbAutor.Location = new Point(523, 102);
             cmbAutor.Name = "cmbAutor";
             cmbAutor.Size = new Size(219, 23);
             cmbAutor.TabIndex = 17;
@@ -177,7 +178,7 @@
             // 
             // txtCategoria
             // 
-            txtCategoria.Location = new Point(523, 176);
+            txtCategoria.Location = new Point(523, 170);
             txtCategoria.Name = "txtCategoria";
             txtCategoria.Size = new Size(219, 23);
             txtCategoria.TabIndex = 14;
@@ -260,7 +261,7 @@
             // 
             lblISBN.AutoSize = true;
             lblISBN.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblISBN.Location = new Point(370, 31);
+            lblISBN.Location = new Point(372, 27);
             lblISBN.Name = "lblISBN";
             lblISBN.Size = new Size(50, 21);
             lblISBN.TabIndex = 4;
@@ -283,6 +284,7 @@
             btnCancelar.IconChar = FontAwesome.Sharp.IconChar.X;
             btnCancelar.IconColor = Color.Black;
             btnCancelar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnCancelar.IconSize = 40;
             btnCancelar.Location = new Point(584, 17);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(140, 40);
@@ -291,12 +293,14 @@
             btnCancelar.TextAlign = ContentAlignment.MiddleRight;
             btnCancelar.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnCancelar.UseVisualStyleBackColor = true;
+            btnCancelar.Click += btnCancelar_Click;
             // 
             // btnEliminar
             // 
             btnEliminar.IconChar = FontAwesome.Sharp.IconChar.DeleteLeft;
             btnEliminar.IconColor = Color.Black;
             btnEliminar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnEliminar.IconSize = 40;
             btnEliminar.Location = new Point(438, 17);
             btnEliminar.Name = "btnEliminar";
             btnEliminar.Size = new Size(140, 40);
@@ -305,12 +309,14 @@
             btnEliminar.TextAlign = ContentAlignment.MiddleRight;
             btnEliminar.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnEliminar.UseVisualStyleBackColor = true;
+            btnEliminar.Click += btnEliminar_Click;
             // 
             // btnEditar
             // 
             btnEditar.IconChar = FontAwesome.Sharp.IconChar.Pencil;
             btnEditar.IconColor = Color.Black;
             btnEditar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnEditar.IconSize = 40;
             btnEditar.Location = new Point(292, 17);
             btnEditar.Name = "btnEditar";
             btnEditar.Size = new Size(140, 40);
@@ -319,12 +325,14 @@
             btnEditar.TextAlign = ContentAlignment.MiddleRight;
             btnEditar.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnEditar.UseVisualStyleBackColor = true;
+            btnEditar.Click += btnEditar_Click;
             // 
             // btnGuardar
             // 
             btnGuardar.IconChar = FontAwesome.Sharp.IconChar.Save;
             btnGuardar.IconColor = Color.Black;
             btnGuardar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnGuardar.IconSize = 40;
             btnGuardar.Location = new Point(146, 18);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(140, 40);
@@ -333,12 +341,14 @@
             btnGuardar.TextAlign = ContentAlignment.MiddleRight;
             btnGuardar.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnGuardar.UseVisualStyleBackColor = true;
+            btnGuardar.Click += btnGuardar_Click;
             // 
             // btnNuevo
             // 
             btnNuevo.IconChar = FontAwesome.Sharp.IconChar.Ad;
             btnNuevo.IconColor = Color.Black;
             btnNuevo.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnNuevo.IconSize = 40;
             btnNuevo.Location = new Point(0, 17);
             btnNuevo.Name = "btnNuevo";
             btnNuevo.Size = new Size(140, 41);
@@ -347,6 +357,7 @@
             btnNuevo.TextAlign = ContentAlignment.MiddleRight;
             btnNuevo.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnNuevo.UseVisualStyleBackColor = true;
+            btnNuevo.Click += btnNuevo_Click;
             // 
             // iconSplitButton1
             // 
@@ -365,8 +376,9 @@
             dgvLibros.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvLibros.Location = new Point(136, 479);
             dgvLibros.Name = "dgvLibros";
-            dgvLibros.Size = new Size(1100, 260);
+            dgvLibros.Size = new Size(742, 260);
             dgvLibros.TabIndex = 4;
+            dgvLibros.CellDoubleClick += dgvLibros_CellDoubleClick;
             // 
             // FrmLibros
             // 

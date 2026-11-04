@@ -5,6 +5,8 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using Microsoft.Data.SqlClient;
+using AcaBiblioteca.Datos;
 
 namespace AcaBiblioteca
 {
@@ -13,6 +15,16 @@ namespace AcaBiblioteca
         public FrmUsuarios()
         {
             InitializeComponent();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnNuevo_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

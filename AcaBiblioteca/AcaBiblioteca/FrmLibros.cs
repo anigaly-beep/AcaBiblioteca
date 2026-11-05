@@ -476,6 +476,11 @@ namespace AcaBiblioteca
             }
 
         }
+
+        private void dgvUsuarios_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }
 

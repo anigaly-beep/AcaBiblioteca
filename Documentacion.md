@@ -165,6 +165,8 @@ El sistema permitirá:
 
 # 4. ANÁLISIS DE REQUERIMIENTOS
 
+![requerimientos](<Imágenes de Análisis/Análisis De Requerimientos - Biblioteca.png>)
+
 ## 4.1 Descripción general
 
 El Sistema de Gestión de Biblioteca permitirá administrar la información
@@ -410,13 +412,558 @@ responsabilidad.
 -   Propiedades: A cada elemento funcional del proyecto se le dan uso de 
     sus propiedades ejemplo al data grid view dgvAutores cuando le hacemos
     .DataSoruce= 'variable' define la fuente de datos a usar.
--   Encapsulamiento: Cuando estamos iniciando el 
--   Colecciones.
--   Herencia, si aplica.
--   Polimorfismo, si aplica.
--   Sobrecarga, si aplica.
+-   Encapsulamiento: Cuando estamos iniciando la programación del formulario 
+    de ususarios tenemos la línea  private bool modoEdicion = false; aquí
+    se encapsula la variable modoEdición para que otra clase no pueda acceder
+    a ella y modificarla.
+-   Colecciones: Para el caso de este concepto lo enlazamos con la creación 
+    de objetos tipo tabla que almacenan información de manera ordenada, cuando
+    creamos un objeto tipo DataTable podemos llenarlo con información traida 
+    de la base de datos por medio de un mñetodo y los datos obtenidos se 
+    muestran en el data grid view
+-   Herencia: En este caso podemos identificar la herencia en la manera que 
+    cada formulario creado es heredado de la clase principal por defecto de
+    wiondows form ya que cada uno de los que creamos tienen métodos como la
+    administración de la ventana,cambio de tamaño, se define cuando vemos
+    en una parte del código frmUsuarios :  Form
 
 ------------------------------------------------------------------------
+
+# 7. MODELO ENTIDAD-RELACIÓN
+
+## 7.1 Descripción
+
+Se diseña las posibles entidades en la base, podemos definir Autores, Usuarios
+editoriales, libros y preñstamos cada una con los atributos necesarios para 
+tener información relevante y también enlazar las llaves foráneas según sea el
+caso, por ejemplo en la entidad libros exiten dos llaves foráneas la de idAutor
+e idEditorial.
+
+## 7.2 Diagrama entidad-relación
+
+![Modelo E-R](<Modelo Entidad-Relación de Biblioteca.png>)
+
+
+## 7.3 Relaciones principales
+
+
+-   Un autor puede tener muchos libros.
+-   Un usuario puede realizar muchos préstamos.
+-   Un libro solo puede tener un autor.
+-   Un libro pertenece a una editorial.
+-   Un préstamo lo realiza un usuario.
+
+------------------------------------------------------------------------
+
+# 8. DICCIONARIO DE DATOS
+
+![diccionario](<Imágenes de Análisis/Diccionario De Datos - Biblioteca .png>)
+
+## 8.1 Convenciones
+
+  Abreviatura   Significado
+  ------------- -----------------------------
+  - PK            Clave primaria
+  - FK            Clave foránea
+  - UQ            Campo con valor único
+  - NULL          Campo que puede estar vacío
+  - NOT NULL      Campo obligatorio
+
+## 8.2 Tabla: Autor
+
+  Campo             Tipo de dato   Clave   Nulo   Descripción
+  ----------------- -------------- ------- ------ --------------------------------
+  - idAutor           INT            PK      No     Identificador único del autor.
+  - nombre            VARCHAR(100)   \-      No     Nombre del autor.
+  - apellidos         VARCHAR(100)   \-      No     Apellidos del autor.
+
+## 8.3 Tabla: Categoria
+
+  Campo         Tipo de dato   Clave   Nulo   Descripción
+  ------------- -------------- ------- ------ --------------------------------------
+
+
+## 8.4 Tabla: Libro
+
+  Campo             Tipo de dato   Clave   Nulo   Descripción
+  ----------------- -------------- ------- ------ -----------------------------------
+  - idLibro (ISBN)    INT            PK      No     Identificador único del libro.
+  - titulo            VARCHAR(200)   \-      No     Título del libro.
+  - anioPublicacion   INT            \-      Sí     Año de publicación.
+  - idAutor           INT            FK      No     Autor asociado al libro.
+  - idEditorial       INT            FK      No     Editorial asociada al libro.
+  - categoría         VARCHAR(50)    \-       \-    Categoría asociada a libro.
+  - existencias       INT            \-       \-    Cantidad de libros disponibles.
+
+## 8.5 Tabla: Usuario
+
+  Campo             Tipo de dato   Clave   Nulo   Descripción
+  ----------------- -------------- ------- ------ ----------------------------------
+  - idUsuario         INT            PK      No     Identificador único del usuario.
+  - documento         VARCHAR(20)    UQ      No     Número de documento.
+  - nombre            VARCHAR(100)   \-      No     Nombre del usuario.
+  - apellidos         VARCHAR(100)   \-      No     Apellidos del usuario.
+  - telefono          VARCHAR(20)    \-      Sí     Teléfono de contacto.
+  - correo            VARCHAR(100)   \-      Sí     Correo electrónico.
+
+
+## 8.6 Tabla: Prestamo
+
+  Campo           Tipo de dato   Clave   Nulo   Descripción
+  --------------- -------------- ------- ------ -----------------------------------
+  - idPrestamo      INT            PK      No     Identificador único del préstamo.
+  - idUsuario       INT            FK      No     Usuario que realiza el préstamo.
+  - ISBN            INT            FK      No     IdLibro
+  - fechaPrestamo   DATETIME       \-      No     Fecha del préstamo.
+  - fechaDevolucion   DATETIME     \-      No     Fecha del préstamo.
+  - estado          VARCHAR(20)    \-      No     Estado del préstamo.
+
+
+------------------------------------------------------------------------
+
+# 9. ARQUITECTURA DEL SISTEMA
+
+## 9.1 Descripción general
+
+El Sistema de Gestión de Biblioteca se desarrolla utilizando una
+**arquitectura por capas**, con el propósito de separar las
+responsabilidades del sistema y facilitar su mantenimiento, organización
+y evolución.
+
+La arquitectura está compuesta por:
+
+1.  Capa de Presentación.
+2.  Capa de Lógica de Negocio.
+3.  Capa de Acceso a Datos.
+4.  Capa de Base de Datos.
+
+## 9.2 Diagrama de arquitectura
+
+![Arquitectura](<Imágenes de Análisis/Arquitectura Del Sistema  - Biblioteca .png>)
+
+## 9.3 Capa de Presentación
+
+**Responsabilidad:**
+
+Es la capa mediante la cual el usuario interactúa con el sistema.
+
+**Componentes:**
+
+-   \[FrmInicio\]
+-   \[FrmPrincipal\]
+-   \[FrmLibros\]
+-   \[FrmAutores\]
+-   \[FrmCategorias\]
+-   \[FrmUsuarios\]
+-   \[FrmPrestamos\]
+-   \[FrmDevoluciones\]
+
+**Tecnología utilizada:**
+
+-   C#
+-   Windows Forms
+-   \[.NET 18.10.3\]
+
+## 9.4 Capa de Lógica de Negocio
+
+**Responsabilidad:**
+
+Procesa las solicitudes provenientes de la interfaz, aplica las reglas
+de negocio y coordina las operaciones.
+
+**Componentes:**
+
+-   \[LibroController\]
+-   \[AutorController\]
+-   \[EditorialController\]
+-   \[UsuarioController\]
+-   \[PrestamoController\]
+
+
+-   Validar disponibilidad.
+-   Validar existencia del usuario.
+-   Validar existancia del autor.
+-   Validar existencia del libro.
+-   Calcular días de retraso.
+-   Actualizar disponibilidad.
+
+## 9.5 Capa de Acceso a Datos
+
+**Responsabilidad:**
+
+Gestiona la comunicación entre la aplicación y SQL Server.
+
+**Componentes:**
+
+-   \[Conexion\]
+-   \[LibroDAO\]
+-   \[AutorDAO\]
+-   \[CategoriaDAO\]
+-   \[UsuarioDAO\]
+-   \[PrestamoDAO\]
+-   \[DevolucionDAO\]
+
+**Tecnologías utilizadas:**
+
+-   SQL Server.
+-   ADO.NET 
+-   SQL CLIENT
+-   Consultas parametrizadas.
+
+## 9.6 Capa de Base de Datos
+
+La información del sistema se almacena en:
+
+**Base de datos:** `[AcaBiblioteca]`
+
+**Tablas principales:**
+
+-   Autor
+-   Libro
+-   Usuario
+-   Prestamo
+-   Editoriales
+
+
+## 9.7 Flujo de información
+
+``` text
+Usuario
+   ↓
+Presentación
+   ↓
+Lógica de Negocio
+   ↓
+Acceso a Datos
+   ↓
+SQL Server
+```
+
+Las respuestas de la base de datos realizan el recorrido inverso hasta
+llegar nuevamente a la interfaz.
+
+------------------------------------------------------------------------
+
+# 10. EXPLICACIÓN DE CADA MÓDULO DESARROLLADO
+
+## 10.1 Módulo de libros
+
+**Objetivo:** \[Tener un panel donde se puedan gestionar los libros
+y a su vez se pueda visualizar información detallada en un data
+grid view.\]
+
+**Funcionalidades:** - Registrar. - Guardar. - Actualizar. -
+Eliminar. - Buscar.
+
+## 10.2 Módulo de autores
+
+**Objetivo:** \[Visibilizar los autores y poder crear nuevos\]
+
+**Funcionalidades:** - Registrar. - Consultar. - Guardar.- Actualizar. 
+Eliminar.
+
+## 10.3 Módulo de editoriales
+
+**Objetivo:** \[Retornar el nombre de la editorial y poder validar
+por megio de una tabla la editoriales creadas\]
+
+**Funcionalidades:** - Registrar. - Consultar. - Actualizar. - Guardar.
+Eliminar.
+
+## 10.4 Módulo de usuarios
+
+**Objetivo:** \[Gestionar los usuarios que van a hacer uso del servicio
+de préstamos\]
+
+**Funcionalidades:** - Registrar. - Consultar. - Actualizar. - Eliminar.
+Guardar.
+## 10.5 Módulo de préstamos
+
+**Objetivo:** \[Tener a mano la información actualizada del estado de
+los préstamos actuales y la fecha.\]
+
+**Funcionalidades:** - Registrar préstamo. - Ver fecha devolución
+. - Ver fecha préstamo. - Actualizar disponibilidad.
+
+## 10.6 Módulo de reportes
+
+**Objetivo:** \[Visibilizar los diferentes reportes de las
+transacciones realizadas por el administrador.\]
+
+**Funcionalidades:** - Generar Reporte - Consultar inventario de
+libros. - Consultar libros devueltos. - Consultar libros prestados.
+
+## 10.7 Módulo de acerca de...
+
+**Objetivo:** \[Generar información del programa.\]
+
+**Funcionalidades:** - Generar un mensaje con la información del 
+desarrollo del programa, versión y otra información relevante.
+
+## 10.8 Módulo de Inicio
+
+**Objetivo:** \[Bienvenida al programa\]
+
+**Funcionalidades:** - Generar una imagen de bienvenida al
+programa de bibloteca interactiva.
+
+------------------------------------------------------------------------
+
+# 11. CAPTURAS DE PANTALLA DEL SISTEMA
+
+
+## 11.1 Menú principal
+
+![Menú principal](<Capturas Proyecto/Captura de pantalla Inicio.png>)
+
+**Descripción:** \[Se aprecia imagen gif de inicio y mensaje de
+bienvenida\]
+
+## 11.2 Gestión de libros
+![Gestión de libros](<Capturas Proyecto/Captura de pantalla Libros.png>)
+
+**Descripción:** \[Gestionar los libros existentes en la biblioteca,
+se pueden guardar registros, editar, eliminar, se puede ver el nombre 
+del libro, Autor, Año y otras características.\]
+
+## 11.3 Gestión de autores
+
+![Gestión de autores](<Capturas Proyecto/Captura de pantalla Autores.png>)
+
+
+**Descripción:** \[En este apartado se gestionan los autores, podemos crear
+un nuevo autor, eliminarlo, el botón cancelar borra todos los registros,
+también podemos ver infromación como nombre del autor y apellido.\]
+
+## 11.4 Gestión de editoriales
+
+![Gestión de editoriales](<Capturas Proyecto/Captura de pantalla Editoriales.png>)
+
+**Descripción:** \[Se pueden crear nuevas editoriales y visibilizar el 
+nombre también una tabla con las editoriales disponibles en el momento.\]
+
+## 11.5 Gestión de usuarios
+
+![Gestión de usuarios](<Capturas Proyecto/Captura de pantalla Usuarios.png>)
+
+
+**Descripción:** \[En este panel se visibilizan los usuarios creados, tambien 
+diferentes opciones de botones como crear nuevo usuario, eliminar, guardar  y 
+aprecia información general del usuario si hacemos doble clic en el data grid
+view\]
+
+## 11.6 Registro de préstamos
+
+![Registro de préstamos](<Capturas Proyecto/Captura de pantalla prestamos.png>)
+
+**Descripción:** \[Aqui se pueden ingresar los diferentes registros de los
+préstamos adquiridos por los usuarios, podemos editar un préstamo,
+registrar una devolución de un libro y en la tabla visivilizar el estado
+de los préstamos ingresados.\]
+
+
+## 11.87 Reportes
+
+![Reportes](<Capturas Proyecto/Captura de pantalla reportes.png>)
+
+**Descripción:** \[Aqui en este panel podemos generar tres diferentes 
+reportes que son 1. Préstamos activos. 2. Préstamos devueltos 3. 
+inventario de libros y dos botones de generar reporte y limpiar que 
+borra el registro\]
+
+------------------------------------------------------------------------
+
+# 12. PRUEBAS DE FUNCIONAMIENTO
+
+## 12.1 Estrategia de pruebas
+
+Describir cómo se verificó el funcionamiento del sistema.
+
+## 12.2 Casos de prueba
+
+  ---------------------------------------------------------------------------------------------------------------
+  ID          Funcionalidad   Entrada / Acción Resultado        Resultado                           Estado
+                                               esperado         obtenido        
+  ----------- --------------- ---------------- ---------------- -------------------------------   ---------------
+  CP01        Registrar libro Datos válidos    Libro registrado \[creación de libro\]               Aprobado
+                                               correctamente                    
+
+  CP02        Registrar libro Código repetido  Mostrar mensaje  \[ISBN duplicado\]                  Aprobado
+                                               de validación                    
+
+  CP03        Registrar       Datos válidos    Usuario          \[Se Ingresa nueavo usuario\]       Aprobado
+              usuario                          registrado                       
+
+  CP04        Registrar       Libro disponible Préstamo         \[Se presta el libro\]              Aprobado
+              préstamo                         registrado y                     
+                                               disponibilidad                   
+                                               actualizada                      
+
+  CP05        Registrar       Libro sin        No permitir el   \[Transsación Rechazada\]           Aprobado
+              préstamo        disponibilidad   préstamo                         
+
+  CP06        Registrar       Préstamo activo  Registrar        \[Devolución completada\]           Aprobado
+              devolución                       devolución y                     
+                                               actualizar                       
+                                               disponibilidad                                         
+
+  CP07        Consulta        Consultar libros Mostrar libros   \[Retorna inventario libros\]       Aprobado
+                              disponibles      disponibles                      
+                    
+  --------------------------------------------------------------------------------------------------------------
+
+## 12.3 Evidencias de pruebas
+
+
+### Prueba CP01
+
+![Evidencia CP01](<Pruebas Proyecto/Prueba CP_01.png>)
+
+**Resultado:** \[Se crea el libro El coronel no tiene quién le escriba\]
+
+### Prueba CP02
+
+![Evidencia CP02](<Pruebas Proyecto/Prueba CP_02.png>)
+
+
+**Resultado:** \[Se intenta crear un libro con un ISBN ya existente, el
+programa rechaza la creación al ser una llave duplicada.\]
+
+### Prueba CP03
+
+![Evidencia CP03](<Pruebas Proyecto/Prueba CP_03.png>)
+
+
+**Resultado:** \[Se crea un nuevo usuario Anibal Galindo, se observa que 
+el usuario ha sido creado con éxito\]
+
+### Prueba CP04
+
+![Evidencia CP04](<Pruebas Proyecto/Prueba CP_04.png>)
+
+
+**Resultado:** \[Se crea una nueva transacción de préstamo del libro
+de la tierra a la luna, se observa mensaje de préstamo registrado 
+con éxito.\]
+
+### Prueba CP05
+
+![Evidencia CP05](<Pruebas Proyecto/Prueba CP_05.png>)
+
+
+**Resultado:** \[Se intenta hacer un préstamo a un libro sin existencias
+el programa valida que no se puede completar la transacción por inventario
+=0\]
+
+### Prueba CP06
+
+![Evidencia CP06](<Pruebas Proyecto/Prueba CP_06.png>)
+
+
+**Resultado:** \[Se realiza una devolución del libro cien años de soledad
+con el usuario Daniel Torres, se evidencia mensaje de devolución completada
+y adicionalmente se suma uno a la exitencia del libro\]
+
+### Prueba CP07
+
+![Evidencia CP07](<Pruebas Proyecto/Prueba CP_07.png>)
+
+
+**Resultado:** \[Se genera un reporte de la cantidad y los libros
+disponibles se actualiza en el data grid view la información
+solicitada.\]
+
+
+------------------------------------------------------------------------
+
+# 13. CONCLUSIONES
+
+## Conclusión 1
+
+Se logra resolver el problema descrito para poder automatizar y gestionar de
+una manera intuitiva las operaciones  en una librería, se integran conocimientos
+de programación avanzada y la importancia de las herramientas de desarollo como 
+visual studio y git hub para publicar la solución en un entorno académico. Se 
+amplían conocimientos para la realización de una solución con interfaz gráfica.
+
+## Conclusión 2
+
+Se amplian conocimientos de programación orientada a objetos como la herencia, 
+abstracción, colecciones y manejo de excepciones con la palabra clave try catch
+dando así opciones de retorno de funaciones como los mensajes de error o la
+validación por condicionales.
+
+## Conclusión 3
+
+Se establece una conexión a una base de datos para generar persistencia a todas 
+transacciones realizadas por el administrador de la biblioteca, se identifican 
+también los comandos para establecer dicha conexión dentro de nuestro proyecto.
+
+
+## Conclusión 4
+
+Se apoya el conocimineto de palabras clavecon la documentación oficial de C#
+y se usa el IDE de visual studio para tomar las sugerencias en cuanto a código
+igualmente se asimilan conocimineot y oprtunidades de mejora en el apartado 
+gráfico.
+
+------------------------------------------------------------------------
+
+# 14. RECOMENDACIONES
+
+-   En nuestro panel de inicio se puede crear un apartado para inicio de
+    sesión y mejorar la seguridad del programa.
+-   Creación de otro autor para que tenga privilegios de consulta.
+-   Creación de la entidad categoría para normalizar la base de datos.
+-   Creación del microservicio de multas en el caso que los usuarios
+    se pasen de la fecha límite de entrega.
+
+------------------------------------------------------------------------
+
+# 15. REFERENCIAS BIBLIOGRÁFICAS
+
+
+Ejemplos de formato:
+
+**Página web:**
+
+W3Schools. (s. f.). C# tutorial. https://www.w3schools.com/cs/index.php
+
+**LLM**
+
+OpenAI. (2026). ChatGPT [Modelo de lenguaje grande]. https://chatgpt.com/
+
+
+
+------------------------------------------------------------------------
+
+# ANEXOS
+
+## Anexo A. Repositorio GitHub
+
+**Repositorio:** (https://github.com/anigaly-beep/AcaBiblioteca.git)
+
+## Anexo B. Script de base de datos
+
+**Archivo:**
+
+[Script DB](SQLQueryAcaBiblioteca.txt)
+
+
+## Anexo C. Evidencia de Git y GitHub
+
+![commits](<Anexos_Evidencias/Captura de pantalla commits gitdesktop.png>)
+![github](<Anexos_Evidencias/Captura de pantalla github.png>)
+
+[creación](<Anexos_Evidencias/Evidencias ACA Programación avanzada.pdf>)
+
+
+
+------------------------------------------------------------------------
+
+
+
+
 
 
 
